@@ -1,0 +1,23 @@
+{
+    "required_api_version": "^2.0.0",
+    "name": "Color converter",
+    "description": "Convert RGB <> Hex codes",
+    "developer_name": "Sergio Fernández Celorio",
+    "icon": "images/icon.png",
+    "options": {
+        "query_debounce": 0.05
+    },
+    "preferences": [{
+            "id": "color_converter_hex",
+            "type": "keyword",
+            "name": "toHex",
+            "default_value": "tohex"
+        },
+        {
+            "id": "color_converter_rgb",
+            "type": "keyword",
+            "name": "toRGB",
+            "default_value": "torgb"
+        }
+    ]
+}
