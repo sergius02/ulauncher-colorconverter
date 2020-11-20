@@ -10,14 +10,20 @@
     "preferences": [{
             "id": "color_converter_hex",
             "type": "keyword",
-            "name": "toHex",
-            "default_value": "tohex"
+            "name": "hex",
+            "default_value": "hex"
         },
         {
             "id": "color_converter_rgb",
             "type": "keyword",
-            "name": "toRGB",
-            "default_value": "torgb"
+            "name": "rgb",
+            "default_value": "rgb"
+        },
+        {
+            "id": "color_converter_rgb",
+            "type": "keyword",
+            "name": "hsv",
+            "default_value": "hsv"
         }
     ]
 }
