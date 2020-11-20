@@ -29,9 +29,9 @@ class HexCodeExtension(Extension):
                     ),
                     ExtensionResultItem(
                         icon='images/icon.png',
-                        name=rgb,
+                        name=rgb.__str__(),
                         description='RGB FORMAT',
-                        on_enter=CopyToClipboardAction(rgb)
+                        on_enter=CopyToClipboardAction(rgb.__str__())
                     )
                 ]
 
