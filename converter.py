@@ -70,6 +70,37 @@ def hsv_to_rgb(hsv: tuple):
 
     return int((r+m)*255), int((g+m)*255), int((b+m)*255)
 
+# Thanks to https://ariya.blogspot.com/2008/07/converting-between-hsl-and-hsv.html
+def hsv_to_hsl(hsv: tuple):
+    h, s, v = hsv[0], hsv[1]/100, hsv[2]/100
+
+    hh = h
+    ll = (2.0 - s) * v
+    ss = s * v
+    if ll <= 1:
+        ss /= ll
+    else:
+        ss /= 2 - ll
+    ll /= 2
+
+    return round(hh, 0), round(ss * 100, 1), round(ll * 100, 1)
+
+# Thanks to https://ariya.blogspot.com/2008/07/converting-between-hsl-and-hsv.html
+def hsl_to_hsv(hsl: tuple):
+    hh, ss, ll = hsl[0], hsl[1]/100, hsl[2]/100
+    h, s, l = 0, 0, 0
+
+    h = hh
+    ll *= 2
+    if ll <= 1:
+        ss *= ll
+    else:
+        ss *= 2 - ll
+    v = (ll + ss) / 2
+    s = (2 * ss) / (ll + ss)
+
+    return round(h, 0), round(s * 100, 1), round(v * 100, 1)
+
 
 def rgb_to_hex(rgb: tuple):
     return '#%02x%02x%02x' % rgb

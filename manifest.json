@@ -24,6 +24,12 @@
             "type": "keyword",
             "name": "hsv",
             "default_value": "hsv"
+        },
+        {
+            "id": "color_converter_rgb",
+            "type": "keyword",
+            "name": "hsl",
+            "default_value": "hsl"
         }
     ]
 }

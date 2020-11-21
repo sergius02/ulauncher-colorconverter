@@ -20,24 +20,35 @@ class HexCodeExtension(Extension):
         hexadecimal = converter.normalize_hexadecimal(text)
         rgb = converter.hex_to_rgb(hexadecimal)
         hsv = converter.rgb_to_hsv(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
 
-        return self.return_results(hexadecimal, rgb, hsv)
+        return self.return_results(hexadecimal, rgb, hsv, hsl)
 
     def rgb(self, text):
         rgb = converter.get_int_tuple(text)
-        hsv = converter.rgb_to_hsv(rgb)
         hexadecimal = converter.rgb_to_hex(rgb)
+        hsv = converter.rgb_to_hsv(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
 
-        return self.return_results(hexadecimal, rgb, hsv)
+        return self.return_results(hexadecimal, rgb, hsv, hsl)
 
     def hsv(self, text):
         hsv = converter.get_float_tuple(text)
         rgb = converter.hsv_to_rgb(hsv)
         hexadecimal = converter.rgb_to_hex(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
 
-        return self.return_results(hexadecimal, rgb, hsv)
+        return self.return_results(hexadecimal, rgb, hsv, hsl)
 
-    def return_results(self, hexadecimal, rgb, hsv):
+    def hsl(self, text):
+        hsl = converter.get_float_tuple(text)
+        hsv = converter.hsl_to_hsv(hsl)
+        rgb = converter.hsv_to_rgb(hsv)
+        hexadecimal = converter.rgb_to_hex(rgb)
+
+        return self.return_results(hexadecimal, rgb, hsv, hsl)
+
+    def return_results(self, hexadecimal, rgb, hsv, hsl):
         return [
             ExtensionResultItem(
                 icon='images/icon.png',
@@ -56,6 +67,12 @@ class HexCodeExtension(Extension):
                 name=hsv.__str__(),
                 description='HSV FORMAT',
                 on_enter=CopyToClipboardAction(hsv.__str__())
+            ),
+            ExtensionResultItem(
+                icon='images/icon.png',
+                name=hsl.__str__(),
+                description='HSL FORMAT',
+                on_enter=CopyToClipboardAction(hsl.__str__())
             )
         ]
 
@@ -74,6 +91,9 @@ class KeywordQueryEventListener(EventListener):
 
         if event.get_keyword() == "hsv":
             return RenderResultListAction(extension.hsv(text))
+
+        if event.get_keyword() == "hsl":
+            return RenderResultListAction(extension.hsl(text))
 
         return RenderResultListAction(items)
 
