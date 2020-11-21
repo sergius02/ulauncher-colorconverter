@@ -18,44 +18,86 @@ class HexCodeExtension(Extension):
 
     def hexadecimal(self, text):
         hexadecimal = converter.normalize_hexadecimal(text)
+
         rgb = converter.hex_to_rgb(hexadecimal)
         hsv = converter.rgb_to_hsv(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
+        cmyk = converter.rgb_to_cmyk(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv)
+        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
 
     def rgb(self, text):
         rgb = converter.get_int_tuple(text)
-        hsv = converter.rgb_to_hsv(rgb)
-        hexadecimal = converter.rgb_to_hex(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv)
+        hexadecimal = converter.rgb_to_hex(rgb)
+        hsv = converter.rgb_to_hsv(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
+        cmyk = converter.rgb_to_cmyk(rgb)
+
+        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
 
     def hsv(self, text):
         hsv = converter.get_float_tuple(text)
+
         rgb = converter.hsv_to_rgb(hsv)
         hexadecimal = converter.rgb_to_hex(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
+        cmyk = converter.rgb_to_cmyk(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv)
+        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
 
-    def return_results(self, hexadecimal, rgb, hsv):
+    def hsl(self, text):
+        hsl = converter.get_float_tuple(text)
+
+        hsv = converter.hsl_to_hsv(hsl)
+        rgb = converter.hsv_to_rgb(hsv)
+        hexadecimal = converter.rgb_to_hex(rgb)
+        cmyk = converter.rgb_to_cmyk(rgb)
+
+        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+
+    def cmyk(self, text):
+        cmyk = converter.get_float_tuple(text)
+
+        rgb = converter.cmyk_to_rgb(cmyk)
+        hsv = converter.rgb_to_hsv(rgb)
+        hsl = converter.hsv_to_hsl(hsv)
+        hexadecimal = converter.rgb_to_hex(rgb)
+
+        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+
+    @staticmethod
+    def return_results(hexadecimal, rgb, hsv, hsl, cmyk):
         return [
             ExtensionResultItem(
                 icon='images/icon.png',
                 name=hexadecimal,
-                description='HEX FORMAT',
+                description='HEX',
                 on_enter=CopyToClipboardAction(hexadecimal)
             ),
             ExtensionResultItem(
                 icon='images/icon.png',
-                name=rgb.__str__(),
-                description='RGB FORMAT',
-                on_enter=CopyToClipboardAction(rgb.__str__())
+                name=converter.normalize_rgb(rgb),
+                description='RGB',
+                on_enter=CopyToClipboardAction(converter.normalize_rgb(rgb))
             ),
             ExtensionResultItem(
                 icon='images/icon.png',
-                name=hsv.__str__(),
-                description='HSV FORMAT',
-                on_enter=CopyToClipboardAction(hsv.__str__())
+                name=converter.normalize_hsl_hsv(hsv),
+                description='HSV',
+                on_enter=CopyToClipboardAction(converter.normalize_hsl_hsv(hsv))
+            ),
+            ExtensionResultItem(
+                icon='images/icon.png',
+                name=converter.normalize_hsl_hsv(hsl),
+                description='HSL',
+                on_enter=CopyToClipboardAction(converter.normalize_hsl_hsv(hsl))
+            ),
+            ExtensionResultItem(
+                icon='images/icon.png',
+                name=converter.normalize_cmyk(cmyk),
+                description='CMYK',
+                on_enter=CopyToClipboardAction(converter.normalize_cmyk(cmyk))
             )
         ]
 
@@ -74,6 +116,12 @@ class KeywordQueryEventListener(EventListener):
 
         if event.get_keyword() == "hsv":
             return RenderResultListAction(extension.hsv(text))
+
+        if event.get_keyword() == "hsl":
+            return RenderResultListAction(extension.hsl(text))
+
+        if event.get_keyword() == "cmyk":
+            return RenderResultListAction(extension.cmyk(text))
 
         return RenderResultListAction(items)
 
