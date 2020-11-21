@@ -1,9 +1,12 @@
 def get_int_tuple(values: str):
-    return tuple(map(int, values.replace('(', '').replace(')', '').replace(' ', '').split(',')))
-
+    return tuple(map(int,  remove_special_chars(values).split(',')))
 
 def get_float_tuple(values: str):
-    return tuple(map(float, values.replace('(', '').replace(')', '').replace(' ', '').split(',')))
+
+    return tuple(map(float,  remove_special_chars(values).split(',')))
+
+def remove_special_chars(value: str):
+    return value.replace('(', '').replace(')', '').replace(' ', '').replace('%', '')
 
 
 def normalize_hexadecimal(hex: str):
