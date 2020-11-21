@@ -12,6 +12,27 @@ def normalize_hexadecimal(hex: str):
     else:
         return hex
 
+def normalize_rgb(rgb: tuple):
+    result = str(rgb[0]) + ', '
+    result += str(rgb[1]) + ', '
+    result += str(rgb[2])
+
+    return result
+
+def normalize_hsl_hsv(values: tuple):
+    result = str(int(values[0])) + ', '
+    result += str(int(values[1])) + '%, '
+    result += str(int(values[2])) + '%'
+
+    return result
+
+def normalize_cmyk(cmyk: tuple):
+    result = str(int(cmyk[0])) + '%, '
+    result += str(int(cmyk[1])) + '%, '
+    result += str(int(cmyk[2])) + '%, '
+    result += str(int(cmyk[3])) + '%'
+
+    return result
 
 # Thanks to https://www.w3resource.com/python-exercises/math/python-math-exercise-77.php
 def rgb_to_hsv(rgb: tuple):
@@ -32,7 +53,7 @@ def rgb_to_hsv(rgb: tuple):
     else:
         s = (df / mx) * 100
     v = mx * 100
-    return round(h, 1), round(s, 1), round(v, 1)
+    return round(h, 0), round(s, 0), round(v, 0)
 
 
 # Thanks to https://www.rapidtables.com/convert/color/hsv-to-rgb.html
@@ -83,7 +104,7 @@ def hsv_to_hsl(hsv: tuple):
         ss /= 2 - ll
     ll /= 2
 
-    return round(hh, 0), round(ss * 100, 1), round(ll * 100, 1)
+    return round(hh, 0), round(ss * 100, 0), round(ll * 100, 0)
 
 # Thanks to https://ariya.blogspot.com/2008/07/converting-between-hsl-and-hsv.html
 def hsl_to_hsv(hsl: tuple):
@@ -99,7 +120,7 @@ def hsl_to_hsv(hsl: tuple):
     v = (ll + ss) / 2
     s = (2 * ss) / (ll + ss)
 
-    return round(h, 0), round(s * 100, 1), round(v * 100, 1)
+    return round(h, 0), round(s * 100, 0), round(v * 100, 0)
 
 
 def rgb_to_hex(rgb: tuple):
@@ -119,7 +140,7 @@ def rgb_to_cmyk(rgb: tuple):
     m = (1 - g - k) / (1 - k)
     y = (1 - b - k) / (1 - k)
 
-    return round(c * 100, 1), round(m * 100, 1), round(y * 100, 1), round(k * 100, 1)
+    return round(c * 100, 0), round(m * 100, 0), round(y * 100, 0), round(k * 100, 0)
 
 def cmyk_to_rgb(cmyk: tuple):
     c, m, y, k = cmyk[0]/100, cmyk[1]/100, cmyk[2]/100, cmyk[3]/100

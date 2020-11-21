@@ -66,37 +66,38 @@ class HexCodeExtension(Extension):
 
         return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
 
-    def return_results(self, hexadecimal, rgb, hsv, hsl, cmyk):
+    @staticmethod
+    def return_results(hexadecimal, rgb, hsv, hsl, cmyk):
         return [
             ExtensionResultItem(
                 icon='images/icon.png',
                 name=hexadecimal,
-                description='HEX FORMAT',
+                description='HEX',
                 on_enter=CopyToClipboardAction(hexadecimal)
             ),
             ExtensionResultItem(
                 icon='images/icon.png',
-                name=rgb.__str__(),
-                description='RGB FORMAT',
-                on_enter=CopyToClipboardAction(rgb.__str__())
+                name=converter.normalize_rgb(rgb),
+                description='RGB',
+                on_enter=CopyToClipboardAction(converter.normalize_rgb(rgb))
             ),
             ExtensionResultItem(
                 icon='images/icon.png',
-                name=hsv.__str__(),
-                description='HSV FORMAT',
-                on_enter=CopyToClipboardAction(hsv.__str__())
+                name=converter.normalize_hsl_hsv(hsv),
+                description='HSV',
+                on_enter=CopyToClipboardAction(converter.normalize_hsl_hsv(hsv))
             ),
             ExtensionResultItem(
                 icon='images/icon.png',
-                name=hsl.__str__(),
-                description='HSL FORMAT',
-                on_enter=CopyToClipboardAction(hsl.__str__())
+                name=converter.normalize_hsl_hsv(hsl),
+                description='HSL',
+                on_enter=CopyToClipboardAction(converter.normalize_hsl_hsv(hsl))
             ),
             ExtensionResultItem(
                 icon='images/icon.png',
-                name=cmyk.__str__(),
-                description='CMYK FORMAT',
-                on_enter=CopyToClipboardAction(cmyk.__str__())
+                name=converter.normalize_cmyk(cmyk),
+                description='CMYK',
+                on_enter=CopyToClipboardAction(converter.normalize_cmyk(cmyk))
             )
         ]
 
