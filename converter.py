@@ -109,3 +109,23 @@ def rgb_to_hex(rgb: tuple):
 def hex_to_rgb(hex: str):
     hex = hex.replace("#", "")
     return tuple(int(hex[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def rgb_to_cmyk(rgb: tuple):
+    r, g, b = rgb[0]/255, rgb[1]/255, rgb[2]/255
+
+    k = 1 - max(r, g, b)
+    c = (1 - r - k) / (1 - k)
+    m = (1 - g - k) / (1 - k)
+    y = (1 - b - k) / (1 - k)
+
+    return round(c * 100, 1), round(m * 100, 1), round(y * 100, 1), round(k * 100, 1)
+
+def cmyk_to_rgb(cmyk: tuple):
+    c, m, y, k = cmyk[0]/100, cmyk[1]/100, cmyk[2]/100, cmyk[3]/100
+
+    r = 255 * (1 - c) * (1 - k)
+    g = 255 * (1 - m) * (1 - k)
+    b = 255 * (1 - y) * (1 - k)
+
+    return int(r), int(g), int(b)

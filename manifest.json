@@ -30,6 +30,12 @@
             "type": "keyword",
             "name": "hsl",
             "default_value": "hsl"
+        },
+        {
+            "id": "color_converter_rgb",
+            "type": "keyword",
+            "name": "cmyk",
+            "default_value": "cmyk"
         }
     ]
 }
