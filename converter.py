@@ -37,6 +37,73 @@ def normalize_cmyk(cmyk: tuple):
 
     return result
 
+
+def check_hex_format(code: str):
+    aux = code.replace("#", "")
+    if len(aux) == 6:
+        try:
+            int(aux, 16)
+            return True
+        except ValueError:
+            return False
+
+
+def check_rgb_format(code: str):
+    try:
+        tuple_aux: tuple = tuple(map(int,  remove_special_chars(code).split(',')))
+        if len(tuple_aux) != 3:
+            return False
+
+        for value in tuple_aux:
+            value_int = int(value)
+            if value_int < 0 or value_int > 255:
+                return False
+    except ValueError:
+        return False
+
+    return True
+
+
+def check_hsv_hsl_format(code: str):
+    try:
+        tuple_aux: tuple = tuple(map(float,  remove_special_chars(code).split(',')))
+        if len(tuple_aux) != 3:
+            return False
+
+        first_value = int(tuple_aux[0])
+        if first_value < 0 or first_value > 360:
+            return False
+
+        second_value = tuple_aux[1]
+        third_value = tuple_aux[2]
+        if second_value < 0 or second_value > 100:
+            return False
+        if third_value < 0 or third_value > 100:
+            return False
+
+    except ValueError:
+        return False
+
+    return True
+
+
+def check_cmyk_format(code: str):
+    try:
+        tuple_aux: tuple = tuple(map(float,  remove_special_chars(code).split(',')))
+        if len(tuple_aux) != 4:
+            return False
+
+        for value in tuple_aux:
+            value_float = float(value)
+            if value_float < 0 or value_float > 100:
+                return False
+
+    except ValueError:
+        return False
+
+    return True
+
+
 # Thanks to https://www.w3resource.com/python-exercises/math/python-math-exercise-77.php
 def rgb_to_hsv(rgb: tuple):
     r, g, b = rgb[0] / 255.0, rgb[1] / 255.0, rgb[2] / 255.0

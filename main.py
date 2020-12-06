@@ -17,54 +17,92 @@ class HexCodeExtension(Extension):
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
 
     def hexadecimal(self, text):
-        hexadecimal = converter.normalize_hexadecimal(text)
+        if converter.check_hex_format(text):
+            hexadecimal = converter.normalize_hexadecimal(text)
 
-        rgb = converter.hex_to_rgb(hexadecimal)
-        hsv = converter.rgb_to_hsv(rgb)
-        hsl = converter.hsv_to_hsl(hsv)
-        cmyk = converter.rgb_to_cmyk(rgb)
+            rgb = converter.hex_to_rgb(hexadecimal)
+            hsv = converter.rgb_to_hsv(rgb)
+            hsl = converter.hsv_to_hsl(hsv)
+            cmyk = converter.rgb_to_cmyk(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+            return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+        else:
+            return self.return_format_error("hex")
 
     def rgb(self, text):
-        rgb = converter.get_int_tuple(text)
+        if converter.check_rgb_format(text):
+            rgb = converter.get_int_tuple(text)
 
-        hexadecimal = converter.rgb_to_hex(rgb)
-        hsv = converter.rgb_to_hsv(rgb)
-        hsl = converter.hsv_to_hsl(hsv)
-        cmyk = converter.rgb_to_cmyk(rgb)
+            hexadecimal = converter.rgb_to_hex(rgb)
+            hsv = converter.rgb_to_hsv(rgb)
+            hsl = converter.hsv_to_hsl(hsv)
+            cmyk = converter.rgb_to_cmyk(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+            return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+        else:
+            return self.return_format_error("rgb")
 
     def hsv(self, text):
-        hsv = converter.get_float_tuple(text)
+        if converter.check_hsv_hsl_format(text):
+            hsv = converter.get_float_tuple(text)
 
-        rgb = converter.hsv_to_rgb(hsv)
-        hexadecimal = converter.rgb_to_hex(rgb)
-        hsl = converter.hsv_to_hsl(hsv)
-        cmyk = converter.rgb_to_cmyk(rgb)
+            rgb = converter.hsv_to_rgb(hsv)
+            hexadecimal = converter.rgb_to_hex(rgb)
+            hsl = converter.hsv_to_hsl(hsv)
+            cmyk = converter.rgb_to_cmyk(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+            return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+        else:
+            return self.return_format_error("hsv")
 
     def hsl(self, text):
-        hsl = converter.get_float_tuple(text)
+        if converter.check_hsv_hsl_format(text):
+            hsl = converter.get_float_tuple(text)
 
-        hsv = converter.hsl_to_hsv(hsl)
-        rgb = converter.hsv_to_rgb(hsv)
-        hexadecimal = converter.rgb_to_hex(rgb)
-        cmyk = converter.rgb_to_cmyk(rgb)
+            hsv = converter.hsl_to_hsv(hsl)
+            rgb = converter.hsv_to_rgb(hsv)
+            hexadecimal = converter.rgb_to_hex(rgb)
+            cmyk = converter.rgb_to_cmyk(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+            return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+        else:
+            return self.return_format_error("hsl")
 
     def cmyk(self, text):
-        cmyk = converter.get_float_tuple(text)
+        if converter.check_cmyk_format(text):
+            cmyk = converter.get_float_tuple(text)
 
-        rgb = converter.cmyk_to_rgb(cmyk)
-        hsv = converter.rgb_to_hsv(rgb)
-        hsl = converter.hsv_to_hsl(hsv)
-        hexadecimal = converter.rgb_to_hex(rgb)
+            rgb = converter.cmyk_to_rgb(cmyk)
+            hsv = converter.rgb_to_hsv(rgb)
+            hsl = converter.hsv_to_hsl(hsv)
+            hexadecimal = converter.rgb_to_hex(rgb)
 
-        return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+            return self.return_results(hexadecimal, rgb, hsv, hsl, cmyk)
+        else:
+            return self.return_format_error("cmyk")
+
+    @staticmethod
+    def get_doc_info(color_format: str):
+        if color_format == "hex":
+            return "Example: #BD93F9"
+        if color_format == "rgb":
+            return "Example: 189, 147, 249"
+        if color_format == "hsv":
+            return "Example: 265, 41%, 98%"
+        if color_format == "hsl":
+            return "Example: 265, 91%, 78%"
+        if color_format == "cmyk":
+            return "Example: 24%, 41%, 0%, 2%"
+        return ""
+
+    def return_format_error(self, color_format: str):
+        return [
+                   ExtensionResultItem(
+                       icon='images/icon.png',
+                       name="Incorrect format",
+                       description=self.get_doc_info(color_format),
+                   )
+                ]
 
     @staticmethod
     def return_results(hexadecimal, rgb, hsv, hsl, cmyk):
