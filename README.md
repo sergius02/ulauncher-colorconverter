@@ -26,10 +26,6 @@ See the screenshots for examples
 
 You can get the code to your clipboard, just select and pressing enter!
 
-> **IMPORTANT!** Please, don't change the default keywords.
->
-> **For the moment** the code has them hardcoded, so the extension cant work if you change it.
-
 ----------
 
 If you like my work you can
