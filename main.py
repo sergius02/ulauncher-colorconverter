@@ -108,19 +108,19 @@ class KeywordQueryEventListener(EventListener):
         items = []
 
         text = event.get_argument() or ""
-        if event.get_keyword() == "hex":
+        if event.get_keyword() == extension.preferences.get("color_converter_hex"):
             return RenderResultListAction(extension.hexadecimal(text))
 
-        if event.get_keyword() == "rgb":
+        if event.get_keyword() == extension.preferences.get("color_converter_rgb"):
             return RenderResultListAction(extension.rgb(text))
 
-        if event.get_keyword() == "hsv":
+        if event.get_keyword() == extension.preferences.get("color_converter_hsv"):
             return RenderResultListAction(extension.hsv(text))
 
-        if event.get_keyword() == "hsl":
+        if event.get_keyword() == extension.preferences.get("color_converter_hsl"):
             return RenderResultListAction(extension.hsl(text))
 
-        if event.get_keyword() == "cmyk":
+        if event.get_keyword() == extension.preferences.get("color_converter_cmyk"):
             return RenderResultListAction(extension.cmyk(text))
 
         return RenderResultListAction(items)

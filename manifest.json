@@ -1,7 +1,7 @@
 {
     "required_api_version": "^2.0.0",
     "name": "Color converter",
-    "description": "Convert RGB <> Hex codes",
+    "description": "Color converter helps you to convert color codes in multiple formats",
     "developer_name": "Sergio Fernández Celorio",
     "icon": "images/icon.png",
     "options": {
@@ -10,31 +10,31 @@
     "preferences": [{
             "id": "color_converter_hex",
             "type": "keyword",
-            "name": "hex",
+            "name": "Convert HEX",
             "default_value": "hex"
         },
         {
             "id": "color_converter_rgb",
             "type": "keyword",
-            "name": "rgb",
+            "name": "Convert RGB",
             "default_value": "rgb"
         },
         {
-            "id": "color_converter_rgb",
+            "id": "color_converter_hsv",
             "type": "keyword",
-            "name": "hsv",
+            "name": "Convert HSV",
             "default_value": "hsv"
         },
         {
-            "id": "color_converter_rgb",
+            "id": "color_converter_hsl",
             "type": "keyword",
-            "name": "hsl",
+            "name": "Convert HSL",
             "default_value": "hsl"
         },
         {
-            "id": "color_converter_rgb",
+            "id": "color_converter_cmyk",
             "type": "keyword",
-            "name": "cmyk",
+            "name": "Convert CMYK",
             "default_value": "cmyk"
         }
     ]
