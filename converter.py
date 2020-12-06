@@ -1,9 +1,10 @@
 def get_int_tuple(values: str):
-    return tuple(map(int,  remove_special_chars(values).split(',')))
+    return tuple(map(int, remove_special_chars(values).split(',')))
+
 
 def get_float_tuple(values: str):
+    return tuple(map(float, remove_special_chars(values).split(',')))
 
-    return tuple(map(float,  remove_special_chars(values).split(',')))
 
 def remove_special_chars(value: str):
     return value.replace('(', '').replace(')', '').replace(' ', '').replace('%', '')
@@ -15,6 +16,7 @@ def normalize_hexadecimal(hex: str):
     else:
         return hex
 
+
 def normalize_rgb(rgb: tuple):
     result = str(rgb[0]) + ', '
     result += str(rgb[1]) + ', '
@@ -22,12 +24,14 @@ def normalize_rgb(rgb: tuple):
 
     return result
 
+
 def normalize_hsl_hsv(values: tuple):
     result = str(int(values[0])) + ', '
     result += str(int(values[1])) + '%, '
     result += str(int(values[2])) + '%'
 
     return result
+
 
 def normalize_cmyk(cmyk: tuple):
     result = str(int(cmyk[0])) + '%, '
@@ -50,7 +54,7 @@ def check_hex_format(code: str):
 
 def check_rgb_format(code: str):
     try:
-        tuple_aux: tuple = tuple(map(int,  remove_special_chars(code).split(',')))
+        tuple_aux: tuple = tuple(map(int, remove_special_chars(code).split(',')))
         if len(tuple_aux) != 3:
             return False
 
@@ -66,7 +70,7 @@ def check_rgb_format(code: str):
 
 def check_hsv_hsl_format(code: str):
     try:
-        tuple_aux: tuple = tuple(map(float,  remove_special_chars(code).split(',')))
+        tuple_aux: tuple = tuple(map(float, remove_special_chars(code).split(',')))
         if len(tuple_aux) != 3:
             return False
 
@@ -89,7 +93,7 @@ def check_hsv_hsl_format(code: str):
 
 def check_cmyk_format(code: str):
     try:
-        tuple_aux: tuple = tuple(map(float,  remove_special_chars(code).split(',')))
+        tuple_aux: tuple = tuple(map(float, remove_special_chars(code).split(',')))
         if len(tuple_aux) != 4:
             return False
 
@@ -128,9 +132,9 @@ def rgb_to_hsv(rgb: tuple):
 
 # Thanks to https://www.rapidtables.com/convert/color/hsv-to-rgb.html
 def hsv_to_rgb(hsv: tuple):
-    h, s, v = hsv[0], hsv[1]/100, hsv[2]/100
+    h, s, v = hsv[0], hsv[1] / 100, hsv[2] / 100
     c: float = v * s
-    x: float = c * (1 - abs((h/60) % 2 - 1))
+    x: float = c * (1 - abs((h / 60) % 2 - 1))
     m: float = v - c
 
     r, g, b = 0, 0, 0
@@ -159,11 +163,12 @@ def hsv_to_rgb(hsv: tuple):
         g = 0
         b = x
 
-    return int((r+m)*255), int((g+m)*255), int((b+m)*255)
+    return int((r + m) * 255), int((g + m) * 255), int((b + m) * 255)
+
 
 # Thanks to https://ariya.blogspot.com/2008/07/converting-between-hsl-and-hsv.html
 def hsv_to_hsl(hsv: tuple):
-    h, s, v = hsv[0], hsv[1]/100, hsv[2]/100
+    h, s, v = hsv[0], hsv[1] / 100, hsv[2] / 100
 
     hh = h
     ll = (2.0 - s) * v
@@ -176,9 +181,10 @@ def hsv_to_hsl(hsv: tuple):
 
     return round(hh, 0), round(ss * 100, 0), round(ll * 100, 0)
 
+
 # Thanks to https://ariya.blogspot.com/2008/07/converting-between-hsl-and-hsv.html
 def hsl_to_hsv(hsl: tuple):
-    hh, ss, ll = hsl[0], hsl[1]/100, hsl[2]/100
+    hh, ss, ll = hsl[0], hsl[1] / 100, hsl[2] / 100
     h, s, l = 0, 0, 0
 
     h = hh
@@ -203,7 +209,7 @@ def hex_to_rgb(hex: str):
 
 
 def rgb_to_cmyk(rgb: tuple):
-    r, g, b = rgb[0]/255, rgb[1]/255, rgb[2]/255
+    r, g, b = rgb[0] / 255, rgb[1] / 255, rgb[2] / 255
 
     k = 1 - max(r, g, b)
     c = (1 - r - k) / (1 - k)
@@ -212,8 +218,9 @@ def rgb_to_cmyk(rgb: tuple):
 
     return round(c * 100, 0), round(m * 100, 0), round(y * 100, 0), round(k * 100, 0)
 
+
 def cmyk_to_rgb(cmyk: tuple):
-    c, m, y, k = cmyk[0]/100, cmyk[1]/100, cmyk[2]/100, cmyk[3]/100
+    c, m, y, k = cmyk[0] / 100, cmyk[1] / 100, cmyk[2] / 100, cmyk[3] / 100
 
     r = 255 * (1 - c) * (1 - k)
     g = 255 * (1 - m) * (1 - k)

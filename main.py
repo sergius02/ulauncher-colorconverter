@@ -1,10 +1,12 @@
 import logging
-from ulauncher.api.client.Extension import Extension
+
 from ulauncher.api.client.EventListener import EventListener
+from ulauncher.api.client.Extension import Extension
+from ulauncher.api.shared.action.CopyToClipboardAction import CopyToClipboardAction
+from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.event import KeywordQueryEvent
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
-from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
-from ulauncher.api.shared.action.CopyToClipboardAction import CopyToClipboardAction
+
 import converter
 
 logger = logging.getLogger(__name__)
@@ -97,12 +99,12 @@ class HexCodeExtension(Extension):
 
     def return_format_error(self, color_format: str):
         return [
-                   ExtensionResultItem(
-                       icon='images/icon.png',
-                       name="Incorrect format",
-                       description=self.get_doc_info(color_format),
-                   )
-                ]
+            ExtensionResultItem(
+                icon='images/icon.png',
+                name="Incorrect format",
+                description=self.get_doc_info(color_format),
+            )
+        ]
 
     @staticmethod
     def return_results(hexadecimal, rgb, hsv, hsl, cmyk):
